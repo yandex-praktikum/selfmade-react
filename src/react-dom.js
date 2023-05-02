@@ -46,7 +46,7 @@ React.__updater = (componentInstance) => {
   componentInstance.__vNode = reconcile(oldVNode, newVNode);
 }
 
-// Экспортируем функцию, чтоб использовать её как ReactDom.render
+// Экспортируем функцию, чтоб использовать её как ReactDom.createRoot
 const ReactDom = {
   createRoot
 };
