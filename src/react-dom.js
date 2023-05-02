@@ -10,20 +10,27 @@ const reconcile = snabbdom.init([propsModule, eventListenersModule]);
 // Переменная, содержащая корневой элемент, который функция render вернула последним
 let rootVNode;
 
-// React.render(<App />, document.getElementById('root'));
-// el -> <App />
+// const root = React.createRoot(document.getElementById('root'));
 // rootDomElement -> document.getElementById('root')
-const render = (el, rootDomElement) => {
-  // В этой функции описывается механизм размещения элемента el в указанном узле rootDomElement
-  // Например, ReactDom.render(<App />, document.getElementById('root'));
-
-  // Этот блок кода будет вызван при первом вызове функции render
-  if (rootVNode == null) {
-    rootVNode = rootDomElement;
-  }
-
-  // Запоминаем VNode, которую возвращает reconcile
-  rootVNode = reconcile(rootVNode, el);
+const createRoot = (rootDomElement) => {
+  return {
+    // root.render(<App />);
+    // el -> <App />
+    render: (el) => {
+      // В этой функции описывается механизм размещения элемента el в указанном узле rootDomElement
+      // Например:
+      // const root = React.createRoot(document.getElementById('root'));
+      // root.render(<App />);
+    
+      // Этот блок кода будет вызван при первом вызове функции render
+      if (rootVNode == null) {
+        rootVNode = rootDomElement;
+      }
+    
+      // Запоминаем VNode, которую возвращает reconcile
+      rootVNode = reconcile(rootVNode, el);
+    }
+  };
 }
 
 // ReactDom указывает React как обновлять DOM
@@ -41,7 +48,7 @@ React.__updater = (componentInstance) => {
 
 // Экспортируем функцию, чтоб использовать её как ReactDom.render
 const ReactDom = {
-  render
+  createRoot
 };
 
 export default ReactDom;
