@@ -6,10 +6,12 @@ module.exports = {
     entry: './src/index.js',
     devServer: {
         port: 3000,
-        contentBase: path.join(__dirname, "dist")
+        static: path.join(__dirname, "dist")
     },
-    node: {
-        fs: 'empty'
+    resolve: {
+      fallback: {
+        fs: false
+      }
     },
     module: {
         rules: [
